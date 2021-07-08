@@ -6,13 +6,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Northstreet Restaurant">
-    <meta name="author" content="A.K.">
+    <meta name="description" content="Restaurant Charlie's Café | Saint-Maximin-la-Sainte-Baume">
+    <meta name="author" content="A.K. | Design: JRM DIGITAL">
 
-    <title>Restaurant Northstreet</title>
+    <title>Charlie's Café | Restaurant | Saint-Maximin-la-Sainte-Baume</title>
 
 
-    <!-- Latest compiled and minified CSS -->
+    <!-- compiled and minified Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
     <!-- jQuery library -->
@@ -21,8 +21,14 @@
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 
-    <!-- Latest compiled JavaScript -->
+    <!-- Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- Vue JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js"></script>
+
+    <!-- Axios JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 
     <!-- Custom Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -41,24 +47,28 @@
 
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
-    <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
-        <a class="navbar-brand" href="#">Restaurant Northstreet</a>
+    <nav class="navbar navbar-expand-md fixed-top">
+        <img id="header_logo" src="img/logo_charliescafe_v2.png" alt="Logo Charlie's Café Restaurant"/>
+        <a class="navbar-brand" href="#">Charlie's Café</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#about">About</a>
+                    <a class="nav-link" href="#menu">Menu du jour</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#menu">Menu</a>
+                    <a class="nav-link" href="#about">A propos de nous</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#service">Service</a>
+                    <a class="nav-link" href="#staff">Notre équipe</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#contact">Contact</a>
+                    <a class="nav-link" href="#gallery">Nos photos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Nous contacter</a>
                 </li>
             </ul>
         </div>
@@ -67,51 +77,96 @@
     <div class="jumbotron">
         <div class="container-fluid">
             <div class="header-content-inner">
-                <h1>Welcome to Northstreet restaurant</h1>
-                <h3>We are proud of our long history of making delicious meals, warm and
-                    friendly atmosphere and professional staff.</h3>
+                <h1>Bienvenue chez Charlie's Café !</h1><br/>
+                <h3 class="d-none d-md-block">Nous sommes fiers de vous proposer une cuisine traditionnelle, confectionnée avec des produits locaux dans une ambiance chaleureuse et conviviale.</h3>
             </div>
         </div>
     </div>
 
+    <section class="bg-menu bg-section" id="menu">
+        <div class="container-fluid">
+            <h3 class="h3-titles">Menu du jour</h3>
+            <hr class="hr-h3s">
+            <!-- <h1 class="container-h1">MENU DU JOUR</h1> -->
+            <div class="row justify-content-center">
+                <div id="app">
+                    <section id="specialssection" class="specials-container" v-if="menuItems_L" :style="menuStyle">
+                        <div id="special_component" :style="menuStyle">
+                            <div class="specials-table-container">
+                                <table>
+                                    <tbody v-for="item in menuItems_L" :key="`specialmenu-${item.name}`">
+                                        <tr class="nameandprice">
+                                            <td :style="dotStyle">
+                                                <span :style="titleStyle">{{item.name}}</span>
+                                            </td>
+                                            <td :style="dotStyle">
+                                                <span :style="titleStyle">{{item.price}}€</span>
+                                            </td>
+                                        </tr>
+                                        <tr class="description">
+                                            <td colspan="2">{{item.description}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table>
+                                    <tbody v-for="item in menuItems_R" :key="`specialmenu-${item.name}`">
+                                        <tr class="nameandprice">
+                                            <td :style="dotStyle">
+                                                <span :style="titleStyle">{{item.name}}</span>
+                                            </td>
+                                            <td :style="dotStyle">
+                                                <span :style="titleStyle">{{item.price}}€</span>
+                                            </td>
+                                        </tr>
+                                        <tr class="description">
+                                            <td colspan="2">{{item.description}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="bg-about bg-section" id="about">
         <div class="container-fluid">
-            <h1 class="container-h1">About</h1>
+            <h3 class="h3-titles">A propos de nous</h3>
+            <hr class="hr-h3s">
             <div class="row">
                 <div class="col-sm-5">
 
                     <div class="hov-img">
                         <img src="https://res.cloudinary.com/dbte0ueti/image/upload/v1536951746/new/warm_welcome.jpg"
-                            alt="Warm welcome" class="hov-img-bottom img-fluid">
+                            alt="Paulo avec son équipe devant le restaurant Charlie's Café." class="hov-img-bottom img-fluid">
                         <div class="hov-img-top hov-img-slideup">
                             <div class="hov-img-text">
-                                <h5>Warm welcome</h5>
-                                <p>It had separate tables, a menu, and specialized in soups made with a base of meat and
-                                    eggs, which were said to be restaurants or, in English "restoratives".</p>
+                                <h5>Venez rencontrer Paulo</h5>
+                                <p>Un accueil chaleureux en plein centre ville de Saint-Maximin-la-Sainte-Baume à deux pas de la Basilique Sainte-Marie-Madeleine.</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="hov-img">
-                        <img src="https://res.cloudinary.com/dbte0ueti/image/upload/v1536951746/new/delicious_meals.jpg"
-                            alt="Delicious meals" class="hov-img-bottom img-fluid">
+                        <img src="img/cuisine_authentique.jpg"
+                            alt="Lasagne et sa salade, cuisine authentique de qualité." class="hov-img-bottom img-fluid">
                         <div class="hov-img-top hov-img-slideup">
                             <div class="hov-img-text">
-                                <h5>Delicious meals</h5>
-                                <p> In about 1765 a new kind of eating establishment, called a "Bouillon", was opened on
-                                    rue des Poulies, near the Louvre, by a man named Boulanger.</p>
+                                <h5>Une cuisine authentique</h5>
+                                <p> Venez découvrir une cuisine traditionnelle, authentique et engagée. Nous nous efforçons de sourcer nos matières premières auprès de nos fermiers locaux.</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="hov-img">
-                        <img src="https://res.cloudinary.com/dbte0ueti/image/upload/v1536951746/new/professional_staff.jpg"
-                            alt="Professional staff" class="hov-img-bottom img-fluid">
+                        <img src="img/epicerie_fine.jpg"
+                            alt="Nos étagères remplis de produits de terroire d'épicerie fine." class="hov-img-bottom img-fluid">
                         <div class="hov-img-top hov-img-slideup">
                             <div class="hov-img-text">
-                                <h5>Professional staff</h5>
-                                <p>For centuries Paris had taverns which served food at large common tables, but they
-                                    were notoriously crowded, noisy, not very clean, and served food of dubious quality.
+                                <h5>Plus qu'un restaurant</h5>
+                                <p>Venez découvrir tous nos produits d'épicerie fine, thé et café en vrac. Torréfaction Noailles.
                                 </p>
                             </div>
                         </div>
@@ -122,31 +177,40 @@
                 <div class="col-sm-7">
                     <div class="row ">
                         <div class="restaurant-history slideanim text-center">
-                            <h3 class="section-heading">Restaurant Northstreet</h3>
-                            <p class="about-history first">The modern idea of a restaurant – as well as the term itself
-                                – appeared in Paris in the 18th century. For centuries Paris had taverns which served
-                                food at large common tables, but they were notoriously crowded, noisy, not very clean,
-                                and served food of dubious quality. In about 1765 a new kind of eating establishment,
-                                called a "Bouillon", was opened on rue des Poulies, near the Louvre, by a man named
-                                Boulanger.<br /> <br>
-                                It had separate tables, a menu, and specialized in soups made with a base of meat and
-                                eggs, which were said to be restaurants or, in English "restoratives". Other similar
-                                bouillons soon opened around Paris.
-                                In about 1765 a new kind of eating establishment, called a "Bouillon", was opened on rue
-                                des Poulies, near the Louvre, by a man named Boulanger.
-                                It had separate tables, a menu, and specialized in soups made with a base of meat and
-                                eggs, which were said to be restaurants or, in English "restoratives". Other similar
-                                bouillons soon opened around Paris.
+                            <h3 class="section-heading">Restaurant Charlie's Café</h3>
+                            <p class="about-history first">Paulo et son équipe vous offrent une généreuse cuisine traditionnelle provençale en plein centre
+                                de Saint-Maximin-la-Sainte-Baume. A deux pas de la Basique Sainte-Marie-Madeleine, vous pourrez venir déjeuner
+                                dans un cadre sympathique situé au beau milieu de la rue piétonne.
+                                <br/> <br/>
+
+                                Le menu, composé d'une poignée de plats, change tous les jours. Nous mettons un point d'honneur à ce que tous nos plats
+                                et nos desserts soient faits maison. Vous retrouverez donc une cuisine franche, authentique, de qualité et surtout locale.
+                                Nous nous efforçons au maximun d'acheter nos ingrédients auprès de fermiers locaux, cela représente pour nous un gage de fraicheur et de qualité.
+                                <br/> <br/>
                             </p>
 
-                            <button type="button" class="btn more" id="more" data-toggle="collapse"
-                                data-target="#demo">More</button>
-                            <div id="demo" class="collapse">
-                                <p class="about-history"> Thanks to Boulanger and his imitators, these soups moved from
-                                    the category of remedy into the category of health food and ultimately into the
-                                    category of ordinary food. Their existence was predicated on health, not gustatory,
-                                    requirements.</p>
-                            </div>
+                            <h3 class="section-heading">L'épicerie fine Charlie's Café</h3>
+                            <p>
+                                Plus qu'un restaurant, nous proposons aussi, à l'image de notre cuisine, des produits de terroir au sein de notre épicerie
+                                fine. Venez découvrir nos délicieux foie-gras, terrines, rillettes et autres succulents mets. Des paniers gourmands vous attendent
+                                pour les grandes occasions.
+                                <br/> <br/>
+
+                                Nous sommes les seuls revendeurs officiels de la marque Duc de Gascogne (Maison fondée en 1953) à Saint-Maximin-la-Sainte-Baume.
+                                <br/> <br/>
+                            </p>
+
+                            <h3 class="section-heading">Torréfaction Noailles</h3>
+                            <p>
+                                Torréfaction Noailles (Depuis 1927) se développe autour d’une certaine philosophie d’art de vivre; préservant la qualité de leur café et
+                                les services d’une tradition toujours vivante aujourd’hui.<br/>
+                                Les mêmes recettes de fabrication traditionnelle chères à nos aïeux ont fait de génération en génération la réputation de
+                                cette marque qui, de nos jours, n’est plus à démontrer !
+                                Torréfaction Noailles a su conserver et préserver son authenticité au fil du temps, découvrez chez nous des produits naturels fabriqués comme autrefois.
+                                <br/><br/>
+                                Acheter votre café et votre thé en vrac chez nous c'est s'assurer l'achat de produits de qualité, fabriqués artisanalement selon des recettes traditionnelles.
+                                <br/> <br/>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -154,426 +218,116 @@
         </div>
     </section>
 
-    <section class="bg-menu bg-section" id="menu">
+    <section class="bg-staff" id="staff">
         <div class="container-fluid">
-            <h1 class="container-h1">Menu</h1>
-            <div class="row">
-
-                <!-- Nav pills -->
-                <ul class="nav nav-pills" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="pill" href="#breakfast">Breakfast</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="pill" href="#lunch">Lunch</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="pill" href="#dinner">Dinner</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="pill" href="#dessert">Dessert</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="pill" href="#salads">Salads</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="pill" href="#drinks">Drinks</a>
-                    </li>
-                </ul>
-
-
-                <!-- Tab panes -->
-                <div class="tab-content slideanim">
-                    <div id="breakfast" class="tab-pane fade show active">
-                        <div class="row">
-                            <div class="col-sm-7">
-                                <ul class="list-group">
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Spanish tortilla<span
-                                                class="badge pull-right">5.90 €</span></h4>
-                                        <p class="list-group-item-text">potatoes, onion, olive oil, free-range eggs</p>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Quick fish cakes<span
-                                                class="badge pull-right">6.80 €</span></h4>
-                                        <p class="list-group-item-text">skinless cod, pollock fillets, Maris Piper,
-                                            flour, olive oil, fresh green herbs, chives, mayonnaise, eggs</p>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Wild rice salad<span
-                                                class="badge pull-right">5.20 €</span></h4>
-                                        <p class="list-group-item-text">mixed rice, wild and long-grain, mixed nuts,
-                                            fresh basil, fresh mint, dried apricots, extra virgin olive oil
-                                        </p>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Chicken milanese with spaghetti<span
-                                                class="badge pull-right">8.70 €</span></h4>
-                                        <p class="list-group-item-text">cloves of garlic, fresh basil, olive oil, plum
-                                            tomatoes, skinless free-range chicken breasts, plain flour, free-range eggs,
-                                            breadcrumbs, Parmesan cheese, dried spaghetti</p>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Mango lassi<span
-                                                class="badge pull-right">3.10 €</span></h4>
-                                        <p class="list-group-item-text">green cardamom pods , optional, ripe mangos,
-                                            low-fat natural yoghurt, ice cubes, runny honey
-                                        </p>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-5">
-                                <div class="right-cover">
-                                    <h3>Breakfast</h3>
-                                    <img src="https://res.cloudinary.com/dbte0ueti/image/upload/v1536951905/new/breakfast.jpg"
-                                        class="menu-img img-fluid" alt="breakfast-img">
-                                </div>
-                            </div>
-                        </div>
+            <h3 class="h3-titles">Notre équipe</h3>
+            <hr class="hr-h3s">
+            <div class="row text-center slideanim thumbnail-row">
+                <div class="col-sm-3">
+                    <div class="staff">
+                        <img src="img/portraits_01_resize_cropped.jpg"
+                            class="" alt="chef-img" style="width:170px; height: 170px">
+                        <h5 class="">Paul Baudry</h5>
+                        <h6>Chef cuisinier</h6>
                     </div>
-                    <div id="lunch" class="tab-pane fade">
-                        <div class="row">
-                            <div class="col-sm-7">
-                                <ul class="list-group">
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Spanish tortilla<span
-                                                class="badge pull-right">5.90 €</span></h4>
-                                        <p class="list-group-item-text">potatoes, onion, olive oil, free-range eggs</p>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Quick fish cakes<span
-                                                class="badge pull-right">6.80 €</span></h4>
-                                        <p class="list-group-item-text">skinless cod, pollock fillets, Maris Piper,
-                                            flour, olive oil, fresh green herbs, chives, mayonnaise, eggs</p>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Wild rice salad<span
-                                                class="badge pull-right">5.20 €</span></h4>
-                                        <p class="list-group-item-text">mixed rice, wild and long-grain, mixed nuts,
-                                            fresh basil, fresh mint, dried apricots, extra virgin olive oil
-                                        </p>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Chicken milanese with spaghetti<span
-                                                class="badge pull-right">8.70 €</span></h4>
-                                        <p class="list-group-item-text">cloves of garlic, fresh basil, olive oil, plum
-                                            tomatoes, skinless free-range chicken breasts, plain flour, free-range eggs,
-                                            breadcrumbs, Parmesan cheese, dried spaghetti</p>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Mango lassi<span
-                                                class="badge pull-right">3.10 €</span></h4>
-                                        <p class="list-group-item-text">green cardamom pods , optional, ripe mangos,
-                                            low-fat natural yoghurt, ice cubes, runny honey
-                                        </p>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-5">
-                                <div class="right-cover">
-                                    <h3>Lunch</h3>
-                                    <img src="https://res.cloudinary.com/dbte0ueti/image/upload/v1536951906/new/lunch.jpg"
-                                        class="menu-img img-fluid" alt="brekfast-img">
-                                </div>
-                            </div>
-                        </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="staff">
+                        <img src="img/portraits_01_resize_cropped.jpg" class=""
+                            alt="chef-img" style="width:170px; height: 170px">
+                        <h5 class="">Marine Martin</h5>
+                        <h6>Second</h6>
                     </div>
-                    <div id="dinner" class="tab-pane fade">
-                        <div class="row">
-                            <div class="col-sm-7">
-                                <ul class="list-group">
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Spanish tortilla<span
-                                                class="badge pull-right">5.90 €</span></h4>
-                                        <p class="list-group-item-text">potatoes, onion, olive oil, free-range eggs</p>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Quick fish cakes<span
-                                                class="badge pull-right">6.80 €</span></h4>
-                                        <p class="list-group-item-text">skinless cod, pollock fillets, Maris Piper,
-                                            flour, olive oil, fresh green herbs, chives, mayonnaise, eggs</p>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Wild rice salad<span
-                                                class="badge pull-right">5.20 €</span></h4>
-                                        <p class="list-group-item-text">mixed rice, wild and long-grain, mixed nuts,
-                                            fresh basil, fresh mint, dried apricots, extra virgin olive oil
-                                        </p>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Chicken milanese with spaghetti<span
-                                                class="badge pull-right">8.70 €</span></h4>
-                                        <p class="list-group-item-text">cloves of garlic, fresh basil, olive oil, plum
-                                            tomatoes, skinless free-range chicken breasts, plain flour, free-range eggs,
-                                            breadcrumbs, Parmesan cheese, dried spaghetti</p>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Mango lassi<span
-                                                class="badge pull-right">3.10 €</span></h4>
-                                        <p class="list-group-item-text">green cardamom pods , optional, ripe mangos,
-                                            low-fat natural yoghurt, ice cubes, runny honey
-                                        </p>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-5">
-                                <div class="right-cover">
-                                    <h3>Dinner</h3>
-                                    <img src="https://res.cloudinary.com/dbte0ueti/image/upload/v1536951906/new/dinner.jpg"
-                                        class="menu-img img-fluid" alt="brekfast-img">
-                                </div>
-                            </div>
-                        </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="staff">
+                        <img src="img/portraits_01_resize_cropped.jpg" class=""
+                            alt="chef-img" style="width:170px; height: 170px">
+                        <h5 class="">Lucas Dubois</h5>
+                        <h6>Serveur</h6>
                     </div>
-                    <div id="dessert" class="tab-pane fade">
-                        <div class="row">
-                            <div class="col-sm-7">
-                                <ul class="list-group">
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Spanish tortilla<span
-                                                class="badge pull-right">5.90 €</span></h4>
-                                        <p class="list-group-item-text">potatoes, onion, olive oil, free-range eggs</p>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Quick fish cakes<span
-                                                class="badge pull-right">6.80 €</span></h4>
-                                        <p class="list-group-item-text">skinless cod, pollock fillets, Maris Piper,
-                                            flour, olive oil, fresh green herbs, chives, mayonnaise, eggs</p>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Wild rice salad<span
-                                                class="badge pull-right">5.20 €</span></h4>
-                                        <p class="list-group-item-text">mixed rice, wild and long-grain, mixed nuts,
-                                            fresh basil, fresh mint, dried apricots, extra virgin olive oil
-                                        </p>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Chicken milanese with spaghetti<span
-                                                class="badge pull-right">8.70 €</span></h4>
-                                        <p class="list-group-item-text">cloves of garlic, fresh basil, olive oil, plum
-                                            tomatoes, skinless free-range chicken breasts, plain flour, free-range eggs,
-                                            breadcrumbs, Parmesan cheese, dried spaghetti</p>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Mango lassi<span
-                                                class="badge pull-right">3.10 €</span></h4>
-                                        <p class="list-group-item-text">green cardamom pods , optional, ripe mangos,
-                                            low-fat natural yoghurt, ice cubes, runny honey
-                                        </p>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-5">
-                                <div class="right-cover">
-                                    <h3>Dessert</h3>
-                                    <img src="https://res.cloudinary.com/dbte0ueti/image/upload/v1536951905/new/dessert.jpg"
-                                        class="menu-img img-fluid" alt="brekfast-img">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="salads" class="tab-pane fade">
-                        <div class="row">
-                            <div class="col-sm-7">
-                                <ul class="list-group">
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Spanish tortilla<span
-                                                class="badge pull-right">5.90 €</span></h4>
-                                        <p class="list-group-item-text">potatoes, onion, olive oil, free-range eggs</p>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Quick fish cakes<span
-                                                class="badge pull-right">6.80 €</span></h4>
-                                        <p class="list-group-item-text">skinless cod, pollock fillets, Maris Piper,
-                                            flour, olive oil, fresh green herbs, chives, mayonnaise, eggs</p>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Wild rice salad<span
-                                                class="badge pull-right">5.20 €</span></h4>
-                                        <p class="list-group-item-text">mixed rice, wild and long-grain, mixed nuts,
-                                            fresh basil, fresh mint, dried apricots, extra virgin olive oil
-                                        </p>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Chicken milanese with spaghetti<span
-                                                class="badge pull-right">8.70 €</span></h4>
-                                        <p class="list-group-item-text">cloves of garlic, fresh basil, olive oil, plum
-                                            tomatoes, skinless free-range chicken breasts, plain flour, free-range eggs,
-                                            breadcrumbs, Parmesan cheese, dried spaghetti</p>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Mango lassi<span
-                                                class="badge pull-right">3.10 €</span></h4>
-                                        <p class="list-group-item-text">green cardamom pods , optional, ripe mangos,
-                                            low-fat natural yoghurt, ice cubes, runny honey
-                                        </p>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-5">
-                                <div class="right-cover">
-                                    <h3>Salads</h3>
-                                    <img src="https://res.cloudinary.com/dbte0ueti/image/upload/v1536951906/new/salads.jpg"
-                                        class="menu-img img-fluid" alt="brekfast-img">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="drinks" class="tab-pane fade">
-                        <div class="row">
-                            <div class="col-sm-7">
-                                <ul class="list-group">
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Spanish tortilla<span
-                                                class="badge pull-right">5.90 €</span></h4>
-                                        <p class="list-group-item-text">potatoes, onion, olive oil, free-range eggs</p>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Quick fish cakes<span
-                                                class="badge pull-right">6.80 €</span></h4>
-                                        <p class="list-group-item-text">skinless cod, pollock fillets, Maris Piper,
-                                            flour, olive oil, fresh green herbs, chives, mayonnaise, eggs</p>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Wild rice salad<span
-                                                class="badge pull-right">5.20 €</span></h4>
-                                        <p class="list-group-item-text">mixed rice, wild and long-grain, mixed nuts,
-                                            fresh basil, fresh mint, dried apricots, extra virgin olive oil
-                                        </p>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Chicken milanese with spaghetti<span
-                                                class="badge pull-right">8.70 €</span></h4>
-                                        <p class="list-group-item-text">cloves of garlic, fresh basil, olive oil, plum
-                                            tomatoes, skinless free-range chicken breasts, plain flour, free-range eggs,
-                                            breadcrumbs, Parmesan cheese, dried spaghetti</p>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h4 class="list-group-item-heading">Mango lassi<span
-                                                class="badge pull-right">3.10 €</span></h4>
-                                        <p class="list-group-item-text">green cardamom pods , optional, ripe mangos,
-                                            low-fat natural yoghurt, ice cubes, runny honey
-                                        </p>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-5">
-                                <div class="right-cover">
-                                    <h3>Drink</h3>
-                                    <img src="https://res.cloudinary.com/dbte0ueti/image/upload/v1536951906/new/drink.jpg"
-                                        class="menu-img img-fluid" alt="brekfast-img">
-                                </div>
-                            </div>
-                        </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="staff">
+                        <img src="img/portraits_01_resize_cropped.jpg" class=""
+                            alt="chef-img" style="width:170px; height: 170px">
+                        <h5 class="">Olivier Durand</h5>
+                        <h6>Sômmelier</h6>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <section class="bg-service bg-section" id="service">
-        <div class="container-fluid text-center">
-            <h1 class="container-h1">Service</h1>
-
-            <div class="row service-round-3 slideanim">
-                <div class="col-sm-4 text-center round">
-                    <div class="service-round b-party">
-                        <i class="fa fa-4x fa fa-birthday-cake sr-icons"></i>
-                    </div>
-                    <h4>Birthday party</h4>
-                    <p>For more information please contact us.</p>
-                </div>
-                <div class="col-sm-4 text-center round">
-                    <div class="service-round wedding">
-                        <i class="fa fa-4x fa fa-heart sr-icons"></i>
-                    </div>
-                    <h4>Wedding</h4>
-                    <p>For more information please contact us</p>
-                </div>
-                <div class="col-sm-4 text-center round">
-                    <div class="service-round b-dinner">
-                        <i class="fa fa-4x fa fa-suitcase  sr-icons"></i>
-                    </div>
-                    <h4>Business dinner</h4>
-                    <p>For more information please contact us.</p>
-                </div>
-            </div>
-            <a href="#contact" class="btn">Contact us</a>
-        </div>
-    </section>
-
-
-
 
     <section id="gallery" class="bg-gallery no-padding">
         <div class="container-fluid">
-            <h3>Gallery</h3>
+            <h3 class="h3-titles">Nos photos</h3>
             <hr class="hr-h3s">
             <div class="row no-gutter gallery slideanim">
 
                 <div class="col-sm-4 portfolio-item">
-                    <a href="#" class="portfolio-link">
+                    <a href="https://www.instagram.com/charlies_cafe_saintmaximin/" target="_blank" class="portfolio-link">
                         <div class="caption">
                             <div class="caption-content">
                                 <i class="fa fa-instagram fa-3x"></i>
                             </div>
                         </div>
-                        <img src="https://res.cloudinary.com/dbte0ueti/image/upload/v1536952203/new/s1.jpg" class="img-fluid
+                        <img src="img/insta_01_resize.jpg" class="img-fluid
                         " alt="">
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
-                    <a href="#" class="portfolio-link">
+                    <a href="https://www.instagram.com/charlies_cafe_saintmaximin/" target="_blank" class="portfolio-link">
                         <div class="caption">
                             <div class="caption-content">
                                 <i class="fa fa-instagram fa-3x"></i>
                             </div>
                         </div>
-                        <img src="https://res.cloudinary.com/dbte0ueti/image/upload/v1536952203/new/s2.jpg"
+                        <img src="img/insta_02_resize.jpg"
                             class="img-fluid" alt="">
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
-                    <a href="#" class="portfolio-link">
+                    <a href="https://www.instagram.com/charlies_cafe_saintmaximin/" target="_blank" class="portfolio-link">
                         <div class="caption">
                             <div class="caption-content">
                                 <i class="fa fa-instagram fa-3x"></i>
                             </div>
                         </div>
-                        <img src="https://res.cloudinary.com/dbte0ueti/image/upload/v1536952203/new/s3.jpg"
+                        <img src="img/insta_03_resize.jpg"
                             class="img-fluid" alt="">
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
-                    <a href="#" class="portfolio-link">
+                    <a href="https://www.instagram.com/charlies_cafe_saintmaximin/" target="_blank" class="portfolio-link">
                         <div class="caption">
                             <div class="caption-content">
                                 <i class="fa fa-instagram fa-3x"></i>
                             </div>
                         </div>
-                        <img src="https://res.cloudinary.com/dbte0ueti/image/upload/v1536952203/new/s4.jpg"
+                        <img src="img/insta_04_resize.jpg"
                             class="img-fluid" alt="">
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
-                    <a href="#" class="portfolio-link">
+                    <a href="https://www.instagram.com/charlies_cafe_saintmaximin/" target="_blank" class="portfolio-link">
                         <div class="caption">
                             <div class="caption-content">
                                 <i class="fa fa-instagram fa-3x"></i>
                             </div>
                         </div>
-                        <img src="https://res.cloudinary.com/dbte0ueti/image/upload/v1536952203/new/s5.jpg"
+                        <img src="img/insta_05_resize.jpg"
                             class="img-fluid" alt="">
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
-                    <a href="#" class="portfolio-link">
+                    <a href="https://www.instagram.com/charlies_cafe_saintmaximin/" target="_blank" class="portfolio-link">
                         <div class="caption">
                             <div class="caption-content">
                                 <i class="fa fa-instagram fa-3x"></i>
                             </div>
                         </div>
-                        <img src="https://res.cloudinary.com/dbte0ueti/image/upload/v1536952203/new/s6.jpg"
+                        <img src="img/insta_06_resize.jpg"
                             class="img-fluid" alt="">
                     </a>
                 </div>
@@ -581,11 +335,11 @@
             <div class="row more-img">
 
                 <div class="to-gallery">
-                    <h4>For more pictures visit us on</h4>
+                    <h4>Pour plus de photos, rendez-vous sur nos réseaux sociaux</h4>
                     <div class="social-networks">
-                        <a href="https://www.instagram.com" target="_blank" class="instagram"><i
+                        <a href="https://www.instagram.com/charlies_cafe_saintmaximin/" target="_blank" class="instagram"><i
                                 class="fa fa-instagram"></i></a>
-                        <a href="https://www.facebook.com" target="_blank" class="facebook"><i
+                        <a href="https://www.facebook.com/charlies.cafe.saint.maximin/" target="_blank" class="facebook"><i
                                 class="fa fa-facebook"></i></a>
                     </div>
                 </div>
@@ -595,51 +349,10 @@
         </div>
     </section>
 
-    <section class="bg-staff" id="staff">
-        <div class="container-fluid">
-            <h3>Our staff</h3>
-            <hr class="hr-h3s">
-            <div class="row text-center slideanim thumbnail-row">
-                <div class="col-sm-3">
-                    <div class="staff">
-                        <img src="https://res.cloudinary.com/dbte0ueti/image/upload/v1536952566/new/manager.jpg"
-                            class="" alt="chef-img" style="width:170px; height: 170px">
-                        <h5 class="">John Johnson</h5>
-                        <h6>Manager</h6>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="staff">
-                        <img src="https://res.cloudinary.com/dbte0ueti/image/upload/v1536952565/new/chef1.jpg" class=""
-                            alt="chef-img" style="width:170px; height: 170px">
-                        <h5 class="">Anna Schmidt</h5>
-                        <h6>Chef</h6>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="staff">
-                        <img src="https://res.cloudinary.com/dbte0ueti/image/upload/v1536952566/new/chef3.jpg" class=""
-                            alt="chef-img" style="width:170px; height: 170px">
-                        <h5 class="">Ivan Gonzales</h5>
-                        <h6>Chef</h6>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="staff">
-                        <img src="https://res.cloudinary.com/dbte0ueti/image/upload/v1536952566/new/chef2.jpg" class=""
-                            alt="chef-img" style="width:170px; height: 170px">
-                        <h5 class="">Joseph Martinez</h5>
-                        <h6>Chef</h6>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section class="bg-testimonials" id="testimonials">
         <div class="container-fluid">
-            <h3 class="">What people say about us</h3>
-            <hr class="hr-testimonials">
+            <h3 class="h3-titles">Ce que nos clients disent de nous</h3>
+            <hr class="hr-h3s">
             <div class="row slideanim">
                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
                     <!-- Indicators -->
@@ -652,20 +365,24 @@
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner" role="listbox">
                         <div class="carousel-item active">
-                            <h4>The atmosphere in restaurant is friendly, and the
-                                dishes are delicious.</h4>
-                            <h5>Mark Gross</h5>
+                            <h4>Fait en famille. Un service souriant, agréable...<br/>
+                                Des assiettes équilibrées, produits frais, assaisonnement raisonné. Prix très cohérent. Et desserts maison délicieux !!<br/>
+                                Je recommande.</h4>
+                            <a href="https://www.google.com/maps/place/Charlie's+Caf%C3%A9/@43.4524706,5.8655208,14.74z/data=!4m7!3m6!1s0x0:0xcd4b93d9d08f46b3!8m2!3d43.4529433!4d5.8618202!9m1!1b1" target="_blank"><h5>Sandra Amaru</h5></a>
                         </div>
 
                         <div class="carousel-item">
-                            <h4>Delicious meals, warm welcome, excellent service.</h4>
-                            <h5>Nina Hansen</h5>
+                            <h4>Une très belle surprise ce petit restaurant.<br/>
+                                Avec la terrasse pleine ils m'ont sorti une table tout de suite. Plat délicieux et bien équilibré, personnel souriant et très agréable.<br/>
+                                Merci beaucoup</h4>
+                            <a href="https://www.google.com/maps/place/Charlie's+Caf%C3%A9/@43.4524706,5.8655208,14.74z/data=!4m7!3m6!1s0x0:0xcd4b93d9d08f46b3!8m2!3d43.4529433!4d5.8618202!9m1!1b1" target="_blank"><h5>Andrei Papp</h5></a>
                         </div>
 
                         <div class="carousel-item">
-                            <h4>Definitely my favourite restaurant, friendly, clean,
-                                delicious meals.</h4>
-                            <h5>Maria Fernandez</h5>
+                            <h4>J'ai 47 ans. Aujourd'hui j'ai mangé la meilleure daube de sanglier et le meilleur gratin dauphinois de ma VIE.<br/>
+                                Bravo    à ce cuisinier, créateur d'émotion.<br/>
+                                Merci.</h4>
+                                <a href="https://www.google.com/maps/place/Charlie's+Caf%C3%A9/@43.4524706,5.8655208,14.74z/data=!4m7!3m6!1s0x0:0xcd4b93d9d08f46b3!8m2!3d43.4529433!4d5.8618202!9m1!1b1" target="_blank"><h5>Yann D</h5></a>
                         </div>
                     </div>
 
@@ -683,88 +400,33 @@
 
     <section class="bg-contact bg-section" id="contact">
         <div class="container-fluid">
-            <h1 class="container-h1">Contact us</h1>
+            <h3 class="h3-titles">Nous contacter</h3>
+            <hr class="hr-h3s">
             <div class="row slideanim">
-                <div class="col-md-6 col-sm-6 contact-left">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
                     <div class="left-box">
                         <address class="contact">
-                            <span class="span-contact">Call:</span>
+                            <span class="span-contact">Téléphone:</span>
                             <br>
-                            +091 1234 5678
+                            +33 (0)4 89 21 82 72
                             <br>
                             <span class="span-contact">Email:</span>
                             <br>
-                            northstreet@gmail.com
+                            <a class="email-style" href="mailto:charliescafe.stmax@gmail.com">charliescafe.stmax@gmail.com</a>
                             <br>
-                            <span class="span-contact">Visit:</span>
+                            <span class="span-contact">Adresse:</span>
                             <br>
-                            22, Northstreet Road
+                            <a href="https://www.google.fr/maps/place/Charlie's+Caf%C3%A9/@43.4529513,5.8596295,17z/data=!3m1!4b1!4m5!3m4!1s0x12c971ff95cbbc8b:0xcd4b93d9d08f46b3!8m2!3d43.4529433!4d5.8618202" target="_blank">
+                            22 rue du Général de Gaulle
                             <br>
-                            Melbourne, Victoria
+                            83470 Saint-Maximin-la-Sainte-Baume
                             <br>
-                            Australia
+                            France</a>
                         </address>
                     </div>
                 </div>
-
-                <div class="col-md-6 col-sm-6 contact-right">
-
-                    <form novalidate action="mailto:anttnew@gmmmail.com" name="frm" method="post">
-                        <div class="form-group has-feedback">
-                            <label class="sr-only">First name:</label>
-                            <input type="text" name="name" class="form-control" placeholder="First name" required>
-
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label class="sr-only">Last name:</label>
-                            <input type="text" name="surname" class="form-control" placeholder="Last name" required>
-
-                        </div>
-                        <div class="form-group has-feedback">
-                            <label class="sr-only">Email:</label>
-                            <input type="email" name="email" class="form-control" placeholder="Email" required>
-
-                        </div>
-                        <div class="form-group">
-                            <label class="sr-only" name="comment" for="comment">Comment:</label>
-                            <textarea class="form-control" rows="5" id="comment" placeholder="Description"></textarea>
-                        </div>
-                        <div class="contact-buttons pull-left">
-                            <input type="submit" name="submit" value="Send" />
-                            <input type="reset" value="Reset" />
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-            <div class="row">
-                <div id="googleMap" style="height:300px;width:100%;"></div>
-
-                <!-- Add Google Maps -->
-                <script src="http://maps.googleapis.com/maps/api/js"></script>
-                <script>
-                    var myCenter = new google.maps.LatLng(-37.817110, 144.959128);
-
-                    function initialize() {
-                        var mapProp = {
-                            center: myCenter,
-                            zoom: 12,
-                            scrollwheel: false,
-                            draggable: false,
-                            mapTypeId: google.maps.MapTypeId.ROADMAP
-                        };
-
-                        var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-
-                        var marker = new google.maps.Marker({
-                            position: myCenter,
-                        });
-
-                        marker.setMap(map);
-                    }
-
-                    google.maps.event.addDomListener(window, 'load', initialize);
-                </script>
+                <div class="col-md-3"></div>
             </div>
         </div>
     </section>
@@ -773,47 +435,46 @@
         <div class="container-fluid">
             <div class="row footer-align">
                 <div class="col-md-4 col-sm-4">
-                    <h5>Northstreet</h5>
+                    <h5>Saint-Maximin-la-Sainte-Baume</h5>
                     <hr class="hr-foot">
                     <div class="footer-items">
                         <p class="footer">
-                            The EU-27 has an estimated 1.6m businesses involved in 'accommodation and food services',
-                            more than 75% of which are small and medium enterprises.
+                            Troisième berceau de la chrétienté au coeur de la Provence Verte, "St-Max" vous surprendra à pleins d'égards.
+                            Venez faire une pause dans votre visite à l'ombre de nos parasols au coeur de la rue piétonne principale et vibrante.
                         </p>
-                        <ul class="social-networks">
-                            <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
-                            <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-                        </ul>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4">
-                    <h5>Our contact</h5>
+                    <h5>Contact</h5>
                     <hr class="hr-foot">
                     <div class="footer-items">
                         <address>
-                            22, Northstreet Road
-                            <br>
-                            Melbourne, Victoria
-                            <br>
-                            Australia
-                            <br>
-                            <i class="fa fa-phone address"></i> +091 1234 5678
-                            <br>
-                            <i class="fa fa-fax address"></i> +876 5432 1234
+                            <a href="https://www.google.fr/maps/place/Charlie's+Caf%C3%A9/@43.4529513,5.8596295,17z/data=!3m1!4b1!4m5!3m4!1s0x12c971ff95cbbc8b:0xcd4b93d9d08f46b3!8m2!3d43.4529433!4d5.8618202" target="_blank">
+                            22 rue du Général De Gaulle
+                            <br/>
+                            83470 Saint-Maximin-la-Sainte-Baume
+                            <br/>
+                            France</a>
+                            <br/><br/>
+                            <i class="fa fa-phone address"></i> +33 (0)4 89 21 82 72
                             <br>
                             <i class="fa fa-envelope address"></i> <a
-                                href="mailto:northstreet@gmail.com">northstreet@gmail.com</a>
+                                href="mailto:charliescafe.stmax@gmail.com">charliescafe.stmax@gmail.com</a>
                         </address>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4">
-                    <h5>Open hours</h5>
+                    <h5>Horaires</h5>
                     <hr class="hr-foot">
                     <div class="footer-items">
                         <ul>
-                            <li>Mon-Fri: 08:00-22:00</li>
-                            <li>Sat : 09:00-22:00</li>
-                            <li>Sun : 09:00-16:00</li>
+                            <li>Mardi-Samedi: 08:00-17:00</li>
+                            <li>Dimanche : 09:00-17:00</li>
+                        </ul>
+                        Suivez nous sur les réseaux:
+                        <ul class="social-networks">
+                            <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+                            <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
                         </ul>
                     </div>
                 </div>
@@ -821,12 +482,12 @@
         </div>
 
         <a class="to-top" href="#myPage" title="toTop">
-            <i class="fa fa-chevron-up"></i>
+            <i class="fa fa-chevron-up align-middle"></i>
         </a>
     </footer>
 
     <div class="footer-copyright">
-        <p>&copy 2018 Copyright by <a href="https://github.com/anttnew"> https://github.com/anttnew</a></p>
+        <p>&copy 2021 Copyright <a href="http://jrmdigital.fr/"> JRM DIGITAL</a></p>
     </div>
 
     <script src="main.js"></script>
