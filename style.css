@@ -78,10 +78,28 @@ textarea {
 	resize: none;
 }
 
-section {
-	align-items: center;
-	padding: 50px 60px;
+@media only screen and (min-width: 601px) {
+	section {
+		align-items: center;
+		padding-top: 50px;
+		padding-left: 10%;
+		padding-right: 10%;
+	}
 }
+
+@media only screen and (max-width: 600px) {
+	section {
+		align-items: center;
+		padding-top: 50px;
+		/* padding-left: 10%;
+		padding-right: 10%; */
+	}
+}
+
+.section-heading {
+	color: #BA1B3B;
+}
+
 .bg-section h2 {
 	font-family: 'Montserrat', sans-serif;
 	text-transform: none;
@@ -204,13 +222,25 @@ section {
     height: 700px;
 }
 
-
 .jumbotron .header-content-inner {
 	font-weight: 700;
 	text-transform: none;
 	margin-bottom: 0;
 	margin: 200px;
 	font-family: 'Roboto', sans-serif;
+}
+
+@media only screen and (max-width: 600px) {
+	.jumbotron .header-content-inner {
+		font-weight: 700;
+		text-transform: none;
+		margin-bottom: 0;
+		/* margin: 200px; */
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 50%	;
+		font-family: 'Roboto', sans-serif;
+	}
 }
 
 .jumbotron h1 {
@@ -229,7 +259,7 @@ section {
 /* ******* About ******* */
 
 .bg-about {
-	margin: auto 50px;
+	/* margin: auto 50px; */
 	background-color: white;
 }
 
@@ -338,9 +368,9 @@ p.first::first-letter {
 
 /* ******* Menu ******* */
 
-.bg-menu {
+/* .bg-menu {
 	margin: auto 50px;
-}
+} */
 
 .specials-container {
     display: flex;
@@ -630,12 +660,14 @@ td:last-child span {
 
 #contact .left-box {
 	background-color: #BA1B3B;
-	margin: 0 20px;
+	margin: 20px;
 	font-size: 15px;
 	text-transform: none;
 	line-height: 1.8em;
 	font-weight: 500;
-	padding: 30px 50px;
+	/* padding: 30px 50px; */
+	padding-top: 20px;
+	padding-bottom: 20px;
 	color: #fff;
 	text-align: center;
 }
